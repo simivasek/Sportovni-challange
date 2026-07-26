@@ -36,8 +36,8 @@ export const competitors: Record<RivalId, Competitor> = {
   },
 }
 
-// O co hrajeme - Prohrávající bude připravovat snídani pr..
-// No dates, results, winners, venues, or notes have been decided.
+// No
+// No
 export const matches: Match[] = [
   {
     sport: "DiscGolf",
