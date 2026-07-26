@@ -36,7 +36,7 @@ export const competitors: Record<RivalId, Competitor> = {
   },
 }
 
-// O co hrajeme - Prohrávající bude připravovat snídani pro celou směnu na následujících deseti společných směnách těch dvou opičáků.
+/* O co hrajeme - Prohrávající bude připravovat snídani pro celou směnu na následujících deseti společných směnách těch dvou opičáků.
 // No dates, results, winners, venues, or notes have been decided.
 export const matches: Match[] = [
   {
