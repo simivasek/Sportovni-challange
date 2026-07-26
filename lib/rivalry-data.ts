@@ -36,7 +36,7 @@ export const competitors: Record<RivalId, Competitor> = {
   },
 }
 
-// Zatím jsme nezačali, jak se do toho pustíme, budou tu výsedky.
+O co hrajeme - Prohrávající bude připravovat snídani pro celou směnu na následujících deseti společných směnách těch dvou opičáků.
 // No dates, results, winners, venues, or notes have been decided.
 export const matches: Match[] = [
   {
@@ -48,9 +48,9 @@ export const matches: Match[] = [
     venueUrl:  "https://www.discgolfpark.com/course/discgolfpark-ladronka/?utm_source=perplexity",
     notes: "První sport na zahřátí. 21.7.26",
     photo: "/photos/discgolf.jpg",},
-  { sport: "Badminton", date: "", winner: null, score: "", venue: "", notes: "" },
+  { sport: "Petanque", date: "", winner: null, score: "", venue: "Beseda Ořechovka", notes: "10.8.2026 od 13:00 Local" },
   { sport: "Footgolf", date: "", winner: null, score: "", venue: "", notes: "" },
-  { sport: "Petanque", date: "", winner: null, score: "", venue: "", notes: "" },
+  { sport: "Badminton", date: "", winner: null, score: "", venue: "", notes: "" },
   { sport: "Bowling", date: "", winner: null, score: "", venue: "", notes: "" },
   { sport: "Karting", date: "", winner: null, score: "", venue: "", notes: "" },
   { sport: "Adventure golf", date: "", winner: null, score: "", venue: "", notes: "" },
