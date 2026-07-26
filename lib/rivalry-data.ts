@@ -48,7 +48,7 @@ export const matches: Match[] = [
     venueUrl:  "https://www.discgolfpark.com/course/discgolfpark-ladronka/?utm_source=perplexity",
     notes: "První sport na zahřátí. 21.7.26",
     photo: "/photos/discgolf.jpg",},
-  { sport: "Badminton", date: "", winner: null, score: "", venue: "", notes: "" },
+  { sport: "Petang", date: "", winner: null, score: "", venue: "", notes: "" },
   { sport: "Footgolf", date: "", winner: null, score: "", venue: "", notes: "" },
   { sport: "Petanque", date: "", winner: null, score: "", venue: "", notes: "" },
   { sport: "Bowling", date: "", winner: null, score: "", venue: "", notes: "" },
