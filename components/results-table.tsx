@@ -1,13 +1,5 @@
 import { competitors, getMatchRows, type MatchRow } from "@/lib/rivalry-data"
-
-function formatDate(iso: string) {
-  if (!iso) return "—"
-  return new Date(iso).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  })
-}
+import { SportPhoto } from "@/components/sport-photo"
 
 function WinnerBadge({ winner }: { winner: MatchRow["winner"] }) {
   if (winner === null) {
@@ -76,9 +68,7 @@ export function ResultsTable() {
 
       {!anyPlayed && (
         <p className="mt-4 rounded-xl border border-dashed border-border bg-secondary/40 px-4 py-3 text-sm text-muted-foreground">
-          The season has not started yet — no matches have been played. Dates,
-          results, winners, and venues will appear here once the competition
-          begins.
+Ještě jsme nezačali...
         </p>
       )}
 
@@ -88,7 +78,7 @@ export function ResultsTable() {
           <table className="w-full border-collapse text-sm">
             <caption className="sr-only">
               Every sport in the rivalry between {competitors.alex.name} and{" "}
-              {competitors.sam.name}, including date, result, winner, running
+              {competitors.sam.name}, including photo, result, winner, running
               ranking, venue, and notes. The season has not started yet.
             </caption>
             <thead>
@@ -97,7 +87,7 @@ export function ResultsTable() {
                   Sport
                 </th>
                 <th scope="col" className="px-4 py-3 font-semibold">
-                  Date
+                  Photo
                 </th>
                 <th scope="col" className="px-4 py-3 font-semibold">
                   Result
@@ -131,8 +121,8 @@ export function ResultsTable() {
                     </span>
                     {m.sport}
                   </th>
-                  <td className="whitespace-nowrap px-4 py-3 text-muted-foreground">
-                    {formatDate(m.date)}
+                  <td className="px-4 py-3">
+                    <SportPhoto src={m.photo} sport={m.sport} />
                   </td>
                   <td className="whitespace-nowrap px-4 py-3 font-mono text-xs text-foreground">
                     {m.score || <span className="text-muted-foreground">—</span>}
@@ -178,9 +168,11 @@ export function ResultsTable() {
             <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
               <div>
                 <dt className="text-xs uppercase tracking-wider text-muted-foreground">
-                  Date
+                  Photo
                 </dt>
-                <dd className="mt-0.5 text-foreground">{formatDate(m.date)}</dd>
+                <dd className="mt-1">
+                  <SportPhoto src={m.photo} sport={m.sport} />
+                </dd>
               </div>
               <div>
                 <dt className="text-xs uppercase tracking-wider text-muted-foreground">

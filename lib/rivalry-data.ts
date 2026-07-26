@@ -14,7 +14,9 @@ export type Match = {
   winner: RivalId | "draw" | null // null = not played yet
   score: string // "" when not yet played
   venue: string // "Místo konání" — "" when not yet decided
+  venueUrl?: string
   notes: string // "" when not yet played
+  photo?: string // path to a photo for this sport, if any
 }
 
 export const competitors: Record<RivalId, Competitor> = {
@@ -22,25 +24,35 @@ export const competitors: Record<RivalId, Competitor> = {
     id: "alex",
     name: "Jakub",
     handle: "@jakub",
+    tagline: "",
     initials: "J",
   },
   sam: {
     id: "sam",
     name: "Vaclav",
     handle: "@vaclav",
+    tagline: "",
     initials: "V",
   },
 }
 
-// Season not started yet — every sport is scheduled but unplayed.
+// Zatím jsme nezačali, jak se do toho pustíme, budou tu výsedky.
 // No dates, results, winners, venues, or notes have been decided.
 export const matches: Match[] = [
-  { sport: "Karting", date: "", winner: null, score: "", venue: "", notes: "" },
+  {
+    sport: "DiscGolf",
+    date: "2026-07-21",
+    winner: "sam",
+    score: "0:1",
+    venue: "Ladronka",
+    venueUrl:  "https://www.discgolfpark.com/course/discgolfpark-ladronka/?utm_source=perplexity",
+    notes: "První sport na zahřátí. 21.7.26",
+    photo: "/photos/discgolf.jpg",},
   { sport: "Badminton", date: "", winner: null, score: "", venue: "", notes: "" },
   { sport: "Footgolf", date: "", winner: null, score: "", venue: "", notes: "" },
   { sport: "Petanque", date: "", winner: null, score: "", venue: "", notes: "" },
   { sport: "Bowling", date: "", winner: null, score: "", venue: "", notes: "" },
-  { sport: "Discgolf", date: "", winner: null, score: "", venue: "", notes: "" },
+  { sport: "Karting", date: "", winner: null, score: "", venue: "", notes: "" },
   { sport: "Adventure golf", date: "", winner: null, score: "", venue: "", notes: "" },
   { sport: "Nohejbal", date: "", winner: null, score: "", venue: "", notes: "" },
   { sport: "Squash", date: "", winner: null, score: "", venue: "", notes: "" },
