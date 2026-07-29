@@ -1,3 +1,6 @@
+"use client"
+
+import { useState } from "react"
 import { competitors, getMatchRows, type MatchRow } from "@/lib/rivalry-data"
 
 function formatDate(iso: string) {
@@ -98,6 +101,7 @@ export function ResultsTable() {
   const rows = getMatchRows()
   const anyPlayed = rows.some((r) => r.played)
   const nextMatchIndex = getNextMatchIndex(rows)
+  const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string } | null>(null)
 
   return (
     <section
@@ -170,10 +174,28 @@ export function ResultsTable() {
                     scope="row"
                     className="px-4 py-3 text-left font-medium text-foreground"
                   >
-                    <span className="mr-2 text-xs tabular-nums text-muted-foreground">
-                      {String(m.index).padStart(2, "0")}
-                    </span>
-                    {m.sport}
+                    <div className="flex items-center gap-3">
+                      {m.image && (
+                        <button
+                          type="button"
+                          onClick={() => setLightboxImage({ src: m.image!, alt: m.sport })}
+                          className="shrink-0 rounded-md ring-offset-2 transition hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-ring"
+                          aria-label={`Zvětšit fotku: ${m.sport}`}
+                        >
+                          <img
+                            src={m.image || "/placeholder.svg"}
+                            alt={m.sport}
+                            className="h-10 w-10 rounded-md object-cover"
+                          />
+                        </button>
+                      )}
+                      <span>
+                        <span className="mr-2 text-xs tabular-nums text-muted-foreground">
+                          {String(m.index).padStart(2, "0")}
+                        </span>
+                        {m.sport}
+                      </span>
+                    </div>
                   </th>
                   <td className="whitespace-nowrap px-4 py-3 text-muted-foreground">
                     {formatDate(m.date)}
@@ -205,12 +227,26 @@ export function ResultsTable() {
         {rows.map((m, i) => (
           <li
             key={m.sport}
-            className={`rounded-xl border p-4 ${
+            className={`overflow-hidden rounded-xl border p-4 ${
               i === nextMatchIndex
                 ? "border-green-300 bg-green-50"
                 : "border-border bg-card"
             }`}
           >
+            {m.image && (
+              <button
+                type="button"
+                onClick={() => setLightboxImage({ src: m.image!, alt: m.sport })}
+                className="-mx-4 -mt-4 mb-3 block w-[calc(100%+2rem)] focus:outline-none"
+                aria-label={`Zvětšit fotku: ${m.sport}`}
+              >
+                <img
+                  src={m.image || "/placeholder.svg"}
+                  alt={m.sport}
+                  className="h-36 w-full object-cover transition hover:opacity-90"
+                />
+              </button>
+            )}
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-baseline gap-2">
                 <span className="text-xs tabular-nums text-muted-foreground">
@@ -260,6 +296,32 @@ export function ResultsTable() {
           </li>
         ))}
       </ul>
+
+      {/* Lightbox overlay for enlarged photo */}
+      {lightboxImage && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={lightboxImage.alt}
+          onClick={() => setLightboxImage(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+        >
+          <button
+            type="button"
+            onClick={() => setLightboxImage(null)}
+            className="absolute right-4 top-4 rounded-full bg-white/10 px-3 py-1 text-sm text-white hover:bg-white/20"
+            aria-label="Zavřít"
+          >
+            ✕ Zavřít
+          </button>
+          <img
+            src={lightboxImage.src || "/placeholder.svg"}
+            alt={lightboxImage.alt}
+            className="max-h-[90vh] max-w-full rounded-lg object-contain"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </section>
   )
 }
