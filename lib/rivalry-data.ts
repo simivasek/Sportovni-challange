@@ -10,12 +10,23 @@ export type Competitor = {
 
 export type Match = {
   sport: string
-  date: string // ISO date, or "" when not yet played
+  date: string // "" when not yet played, otherwise "MM.DD.YYYY"
   winner: RivalId | "draw" | null // null = not played yet
   score: string // "" when not yet played
   venue: string // "Místo konání" — "" when not yet decided
   notes: string // "" when not yet played
   image?: string // optional photo path, e.g. "/images/discgolf.jpg"
+}
+
+// Parses the "MM.DD.YYYY" date format used in `matches` reliably across browsers.
+// (Native `new Date("MM.DD.YYYY")` parsing is inconsistent between browsers.)
+export function parseMatchDate(date: string): Date | null {
+  if (!date) return null
+  const parts = date.split(".").map((p) => Number.parseInt(p, 10))
+  if (parts.length !== 3 || parts.some((n) => Number.isNaN(n))) return null
+  const [month, day, year] = parts
+  const d = new Date(year, month - 1, day)
+  return Number.isNaN(d.getTime()) ? null : d
 }
 
 export const competitors: Record<RivalId, Competitor> = {
