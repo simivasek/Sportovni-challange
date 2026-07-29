@@ -34,14 +34,14 @@ export const competitors: Record<RivalId, Competitor> = {
     id: "alex",
     name: "Jakub",
     handle: "@jakub",
-    tagline: "Rychlost nade vše",
+    tagline: "",
     initials: "J",
   },
   sam: {
     id: "sam",
     name: "Vaclav",
     handle: "@vaclav",
-    tagline: "Technika a klid",
+    tagline: "",
     initials: "V",
   },
 }
