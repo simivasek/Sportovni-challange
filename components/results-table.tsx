@@ -9,6 +9,30 @@ function formatDate(iso: string) {
   })
 }
 
+// Splits text on URLs and renders them as clickable links, keeping the rest as plain text.
+function renderNotes(notes: string) {
+  if (!notes) return "—"
+
+  const urlRegex = /(https?:\/\/[^\s]+)/g
+  const parts = notes.split(urlRegex)
+
+  return parts.map((part, i) =>
+    urlRegex.test(part) ? (
+      <a
+        key={i}
+        href={part}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-foreground underline underline-offset-2 hover:text-primary"
+      >
+        {part}
+      </a>
+    ) : (
+      part
+    ),
+  )
+}
+
 function WinnerBadge({ winner }: { winner: MatchRow["winner"] }) {
   if (winner === null) {
     return (
@@ -147,7 +171,7 @@ export function ResultsTable() {
                     {m.venue || "—"}
                   </td>
                   <td className="min-w-[14rem] px-4 py-3 text-pretty text-muted-foreground">
-                    {m.notes || "—"}
+                    {renderNotes(m.notes)}
                   </td>
                 </tr>
               ))}
@@ -207,7 +231,7 @@ export function ResultsTable() {
             </dl>
 
             <p className="mt-3 border-t border-border pt-3 text-pretty text-sm text-muted-foreground">
-              {m.notes || "—"}
+              {renderNotes(m.notes)}
             </p>
           </li>
         ))}
