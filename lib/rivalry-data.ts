@@ -35,7 +35,7 @@ export const competitors: Record<RivalId, Competitor> = {
 // Season not started yet — every sport is scheduled but unplayed.
 // No dates, results, winners, venues, or notes have been decided.
 export const matches: Match[] = [
-  { sport: "Discgolf", date: "", winner: sam, score: "0:1", venue: "", notes: "" },
+  { sport: "Discgolf", date: "", winner: "sam", score: "0:1", venue: "", notes: "" },
   { sport: "Petanque", date: "10.8.2026", winner: null, score: "", venue: "", notes: "" },
   { sport: "Footgolf", date: "", winner: null, score: "", venue: "", notes: "" },
   { sport: "Badminton", date: "", winner: null, score: "", venue: "", notes: "" },
