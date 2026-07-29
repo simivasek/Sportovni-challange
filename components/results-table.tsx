@@ -103,6 +103,7 @@ export function ResultsTable() {
   const rows = getMatchRows()
   const anyPlayed = rows.some((r) => r.played)
   const nextMatchIndex = getNextMatchIndex(rows)
+  const playedCount = rows.filter((r) => r.played).length
   const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string } | null>(null)
 
   return (
@@ -118,7 +119,7 @@ export function ResultsTable() {
           Results by Sport
         </h2>
         <span className="text-sm text-muted-foreground">
-          {rows.length} sports
+          {playedCount}/{rows.length} sports played
         </span>
       </div>
 
