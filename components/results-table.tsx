@@ -170,7 +170,7 @@ export function ResultsTable() {
                 <tr
                   key={m.sport}
                   className={`border-b border-border align-top transition-colors last:border-0 hover:bg-secondary/50 ${
-                    i === nextMatchIndex ? "bg-green-50" : ""
+                    i === nextMatchIndex ? "bg-emerald-500/10" : ""
                   }`}
                 >
                   <th
@@ -232,7 +232,7 @@ export function ResultsTable() {
             key={m.sport}
             className={`overflow-hidden rounded-xl border p-4 ${
               i === nextMatchIndex
-                ? "border-green-300 bg-green-50"
+                ? "border-emerald-500/40 bg-emerald-500/10"
                 : "border-border bg-card"
             }`}
           >
