@@ -1,11 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { competitors, getMatchRows, type MatchRow } from "@/lib/rivalry-data"
+import { competitors, getMatchRows, parseMatchDate, type MatchRow } from "@/lib/rivalry-data"
 
-function formatDate(iso: string) {
-  if (!iso) return "—"
-  return new Date(iso).toLocaleDateString("en-US", {
+function formatDate(dateStr: string) {
+  const d = parseMatchDate(dateStr)
+  if (!d) return "—"
+  return d.toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
     year: "numeric",
@@ -43,8 +44,9 @@ function getNextMatchIndex(rows: MatchRow[]): number {
   let bestTime = Infinity
   rows.forEach((row, idx) => {
     if (row.played || !row.date) return
-    const time = new Date(row.date).getTime()
-    if (Number.isNaN(time)) return
+    const d = parseMatchDate(row.date)
+    if (!d) return
+    const time = d.getTime()
     if (time < bestTime) {
       bestTime = time
       bestIndex = idx
