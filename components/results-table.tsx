@@ -33,6 +33,23 @@ function renderNotes(notes: string) {
   )
 }
 
+// Finds the index of the next upcoming (unplayed, scheduled) match — the one
+// with the earliest future date that hasn't been played yet.
+function getNextMatchIndex(rows: MatchRow[]): number {
+  let bestIndex = -1
+  let bestTime = Infinity
+  rows.forEach((row, idx) => {
+    if (row.played || !row.date) return
+    const time = new Date(row.date).getTime()
+    if (Number.isNaN(time)) return
+    if (time < bestTime) {
+      bestTime = time
+      bestIndex = idx
+    }
+  })
+  return bestIndex
+}
+
 function WinnerBadge({ winner }: { winner: MatchRow["winner"] }) {
   if (winner === null) {
     return (
@@ -80,6 +97,7 @@ function RankingBadge({ row }: { row: MatchRow }) {
 export function ResultsTable() {
   const rows = getMatchRows()
   const anyPlayed = rows.some((r) => r.played)
+  const nextMatchIndex = getNextMatchIndex(rows)
 
   return (
     <section
@@ -141,10 +159,12 @@ export function ResultsTable() {
               </tr>
             </thead>
             <tbody>
-              {rows.map((m) => (
+              {rows.map((m, i) => (
                 <tr
                   key={m.sport}
-                  className="border-b border-border align-top transition-colors last:border-0 hover:bg-secondary/50"
+                  className={`border-b border-border align-top transition-colors last:border-0 hover:bg-secondary/50 ${
+                    i === nextMatchIndex ? "bg-green-50" : ""
+                  }`}
                 >
                   <th
                     scope="row"
@@ -182,10 +202,14 @@ export function ResultsTable() {
 
       {/* Mobile: stacked cards (below md) */}
       <ul className="mt-4 flex flex-col gap-3 md:hidden">
-        {rows.map((m) => (
+        {rows.map((m, i) => (
           <li
             key={m.sport}
-            className="rounded-xl border border-border bg-card p-4"
+            className={`rounded-xl border p-4 ${
+              i === nextMatchIndex
+                ? "border-green-300 bg-green-50"
+                : "border-border bg-card"
+            }`}
           >
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-baseline gap-2">
