@@ -103,8 +103,10 @@ export function ResultsTable() {
   const rows = getMatchRows()
   const anyPlayed = rows.some((r) => r.played)
   const nextMatchIndex = getNextMatchIndex(rows)
+  const nextMatch = nextMatchIndex >= 0 ? rows[nextMatchIndex] : null
   const playedCount = rows.filter((r) => r.played).length
   const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string } | null>(null)
+  const [showIntro, setShowIntro] = useState(true)
 
   return (
     <section
@@ -299,6 +301,64 @@ export function ResultsTable() {
           </li>
         ))}
       </ul>
+
+      {/* Intro popup shown on page load with the next upcoming activity */}
+      {showIntro && nextMatch && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Nadcházející aktivita"
+          onClick={() => setShowIntro(false)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-sm cursor-pointer overflow-hidden rounded-2xl border border-emerald-500/40 bg-card shadow-xl"
+          >
+            {nextMatch.image && (
+              <img
+                src={nextMatch.image || "/placeholder.svg"}
+                alt={nextMatch.sport}
+                className="h-40 w-full object-cover"
+              />
+            )}
+            <div className="p-5">
+              <p className="text-xs font-semibold uppercase tracking-wider text-emerald-500">
+                Nadcházející aktivita
+              </p>
+              <h3 className="mt-1 font-display text-xl font-bold text-foreground">
+                {nextMatch.sport}
+              </h3>
+              <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+                <div>
+                  <dt className="text-xs uppercase tracking-wider text-muted-foreground">
+                    Date
+                  </dt>
+                  <dd className="mt-0.5 text-foreground">{formatDate(nextMatch.date)}</dd>
+                </div>
+                <div>
+                  <dt className="text-xs uppercase tracking-wider text-muted-foreground">
+                    Místo konání
+                  </dt>
+                  <dd className="mt-0.5 text-foreground">{nextMatch.venue || "—"}</dd>
+                </div>
+              </dl>
+              {nextMatch.notes && (
+                <p className="mt-3 border-t border-border pt-3 text-pretty text-sm text-muted-foreground">
+                  {renderNotes(nextMatch.notes)}
+                </p>
+              )}
+              <button
+                type="button"
+                onClick={() => setShowIntro(false)}
+                className="mt-4 w-full rounded-lg bg-emerald-500/10 py-2 text-sm font-semibold text-emerald-600 transition hover:bg-emerald-500/20"
+              >
+                Zobrazit celý přehled
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Lightbox overlay for enlarged photo */}
       {lightboxImage && (
