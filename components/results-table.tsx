@@ -37,22 +37,11 @@ function renderNotes(notes: string) {
   )
 }
 
-// Finds the index of the next upcoming (unplayed, scheduled) match — the one
-// with the earliest future date that hasn't been played yet.
+// Finds the index of the next upcoming match — the first unplayed match in
+// list order. The order of the `matches` array represents the schedule, so a
+// match doesn't need a confirmed date yet to count as "next up".
 function getNextMatchIndex(rows: MatchRow[]): number {
-  let bestIndex = -1
-  let bestTime = Infinity
-  rows.forEach((row, idx) => {
-    if (row.played || !row.date) return
-    const d = parseMatchDate(row.date)
-    if (!d) return
-    const time = d.getTime()
-    if (time < bestTime) {
-      bestTime = time
-      bestIndex = idx
-    }
-  })
-  return bestIndex
+  return rows.findIndex((row) => !row.played)
 }
 
 function WinnerBadge({ winner }: { winner: MatchRow["winner"] }) {
