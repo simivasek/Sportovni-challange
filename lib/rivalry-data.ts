@@ -51,8 +51,8 @@ export const competitors: Record<RivalId, Competitor> = {
 export const matches: Match[] = [
   { sport: "Discgolf", date: "07.21.2026", winner: "sam", score: "0:1", venue: "Ladronka", notes: "", image: "/images/discgolf.jpg" },
   { sport: "Petanque", date: "08.10.2026", winner: "sam", score: "2:1", venue: "Ořechovka", notes: "Přijď se pobavit https://www.beseda-orechovka.cz/", image: "/images/petanque.jpg" },
-  { sport: "Nohejbal", date: "", winner: "alex", score: "2:0", venue: "", notes: "", image: "/images/nohejbal.jpg" },  
-  { sport: "Minigolf", date: "", winner: null, score: "", venue: "", notes: "" },
+  { sport: "Nohejbal", date: "09.03.2026", winner: "alex", score: "2:0", venue: "ATC Jeneč", notes: "Od 12:30", image: "/images/nohejbal.jpg" },
+  { sport: "Minigolf", date: "", winner: null, score: "", venue: "Horní Bezděkov", notes: "https://adventuregolf.cz" }, 
   { sport: "Bowling", date: "", winner: null, score: "", venue: "", notes: "" },
   { sport: "Karting", date: "", winner: null, score: "", venue: "", notes: "" },
   { sport: "Adventure golf", date: "", winner: null, score: "", venue: "", notes: "" },
